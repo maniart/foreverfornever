@@ -12,11 +12,11 @@ var logger = createOnceLog();
 var logger2 = createOnceLog();
 
 var THRESHOLD = 100;
-var SLICE_COUNT_Y =  40;
-var SLICE_COUNT_X =  40;
+var SLICE_COUNT_Y =  50;
+var SLICE_COUNT_X =  65
 var TOTAL_COUNT = SLICE_COUNT_X * SLICE_COUNT_Y; 
 var inputs = [];
-var slices = [];
+var slices = window.slices = [];
 var inputContainer = document.querySelector('#element-container');
 
 function Slice(el) {
@@ -33,6 +33,7 @@ Slice.prototype.setActive = function(isActive) {
 
 Slice.prototype.react = function() {
   var reset = function() {
+    // debugger;
     // console.warn('_reset_');
     this.setActive(false);
     window.clearTimeout(this.timer);
@@ -40,17 +41,18 @@ Slice.prototype.react = function() {
     this.timer = null;
   }.bind(this);
 
-  if (this.active) {
-    return this.el.classList.remove('hidden');
+  if (!this.active) {
+    this.setActive(true);
+    this.el.classList.remove('hidden');
+    this.timer = window.setTimeout(reset, 500);
   }
-  this.timer = window.setTimeout(reset, 1000);
-  this.setActive(true);
   return this;
 };
 
 for(var i = 0; i < TOTAL_COUNT; i ++) {
+  // debugger
   var el = document.createElement('span');
-  el.classList.add('pin');
+  el.classList.add('pin', 'hidden');
   inputContainer.appendChild(el);
   slices.push(new Slice(el));
 }
@@ -64,13 +66,14 @@ var diffy = Diffy.create({
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
   onFrame: function (matrix) {
+    // debugger
     var slice;
     var index;
     for(var i = 0; i < matrix.length; i++) {
-      var row = matrix[i];
+      var column = matrix[i];
       var input;
-      for(var j = 0; j < row.length; j ++) {
-        index = SLICE_COUNT_Y * j + i;
+      for(var j = 0; j < column.length; j ++) {
+        index = SLICE_COUNT_X * j + i;
         slice = slices[index];
         if(matrix[i][j] < 180) {
           slice.react();

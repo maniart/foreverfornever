@@ -4,6 +4,10 @@
   <title>experiment</title>
 </head>
   <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
     body {
     }
     html, body {
@@ -12,8 +16,8 @@
       background-color: rgb(203, 230, 164);
     }
     #element-container {
-      width: 800px;
-      height: 800px;
+      width: 1300px;
+      height: 1000px;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -22,9 +26,10 @@
       -moz-transform: translate(-50%, -50%);
     }
     .pin {
-      background: url('./pin.png') 50% 50% no-repeat transparent;
+      background: url('./pin.png') 0 0 no-repeat;
       background-size: contain;
       width: 20px;
+      margin-top: 0px;
       height: 20px;
       display: inline-block;
     }
@@ -35,10 +40,6 @@
 <body>
     
   <div id="element-container">
-  </div>
-
-  <div class="pin">
-    
   </div>
 
   <script src="../bower_components/diffyjs/dist/diffy.min.js"></script>
