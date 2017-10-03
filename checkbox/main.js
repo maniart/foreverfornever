@@ -12,10 +12,9 @@ var logger = createOnceLog();
 var logger2 = createOnceLog();
 
 var THRESHOLD = 100;
-var SLICE_COUNT_Y =  40;
-var SLICE_COUNT_X =  40;
+var SLICE_COUNT_Y =  25;
+var SLICE_COUNT_X =  32;
 var TOTAL_COUNT = SLICE_COUNT_X * SLICE_COUNT_Y; 
-var inputs = [];
 var slices = [];
 var inputContainer = document.querySelector('#element-container');
 
@@ -33,18 +32,17 @@ Slice.prototype.setActive = function(isActive) {
 
 Slice.prototype.react = function() {
   var reset = function() {
-    // console.warn('_reset_');
     this.setActive(false);
     window.clearTimeout(this.timer);
     this.el.removeAttribute('checked');
     this.timer = null;
   }.bind(this);
 
-  if (this.active) {
-    return this.el.setAttribute('checked', '');
+  if (!this.active) {
+    this.setActive(true);
+    this.el.setAttribute('checked', true);
+    this.timer = window.setTimeout(reset, 500);
   }
-  this.timer = window.setTimeout(reset, 1000);
-  this.setActive(true);
   return this;
 };
 
@@ -52,7 +50,6 @@ for(var i = 0; i < TOTAL_COUNT; i ++) {
   var input = document.createElement('input');
   input.setAttribute('type', 'checkbox');
   inputContainer.appendChild(input);
-  inputs.push(input);
   slices.push(new Slice(input));
 }
 
@@ -60,7 +57,7 @@ for(var i = 0; i < TOTAL_COUNT; i ++) {
 var diffy = Diffy.create({
   resolution: { x: SLICE_COUNT_X, y: SLICE_COUNT_Y },
   sensitivity: .2,
-  threshold: 10,
+  threshold: 20,
   debug: true,
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
@@ -68,10 +65,10 @@ var diffy = Diffy.create({
     var slice;
     var index;
     for(var i = 0; i < matrix.length; i++) {
-      var row = matrix[i];
+      var column = matrix[i];
       var input;
-      for(var j = 0; j < row.length; j ++) {
-        index = SLICE_COUNT_Y * j + i;
+      for(var j = 0; j < column.length; j ++) {
+        index = SLICE_COUNT_X * j + i;
         slice = slices[index];
         if(matrix[i][j] < 180) {
           slice.react();
@@ -80,4 +77,14 @@ var diffy = Diffy.create({
     }
   }
 });
+
+window.onload = function() {
+  var inputs = document.querySelectorAll('input');
+  inputs.forEach((input) => {
+    input.addEventListener('click', function(event) {
+      event.preventDefault();
+      return false;
+    });
+  });
+};
 

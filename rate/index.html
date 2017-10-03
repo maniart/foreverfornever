@@ -5,6 +5,8 @@
 </head>
   <style type="text/css">
     body {
+      unicode-bidi: bidi-override;
+      direction: rtl;
     }
     html, body {
       width: 100%;
@@ -21,6 +23,14 @@
       transform: translate(-50%, -50%);
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
+    }
+    .star {
+      unicode-bidi: bidi-override;
+      direction: rtl;
+    }
+    .star.active {
+      content: "\2605";
+      position: absolute;
     }
   </style>
 <body>
