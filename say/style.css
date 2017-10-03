@@ -1,166 +1,43 @@
 body {
   text-align: center;
   font-family: Helvetica;
-}
-
-.bubble-wrap {
-  position: relative;
-  float: left;
-  margin-top: -4px;
-}
-
-.bubble-wrap.animating {
-  background: #ff0033;
+  background: rgb(230, 230, 230);
 }
 
 #element-container {
-  width: 1080px;
-  height: auto;
+  width: 980px;
+  padding: 30px;
+  background: white;
+  border-radius: 40px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
-  opacity: .7;
 }
 
-.bubble-wrap>span {
+.bubble {
+  width: 30px;
+  height: 30px;
+  background: url('./bubble.png') 0 0 no-repeat transparent;
+  background-size: contain;
+  opacity: 0.2;
+  float: left;
+  transition: 0.3 ease-out opacity;
+  -moz-transition: 0.3 ease-out opacity;
+  -webkit-transition: 0.3 ease-out opacity;
+  position: relative;
+}
+
+.bubble.active {
+  opacity: 1;
+}
+
+.bubble>span {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-svg {
-  width: 1em;
-  height: 1em;
-  font-size: 2.09em;
-  fill: white;
-  /*background: #efefef;*/
-}
 
-.bubble circle:nth-of-type(1) {
-  opacity: 0.35;
-
-}
-.bubble circle:nth-of-type(2) {
-  opacity: 0.35;
-
-}
-.bubble circle:nth-of-type(3) {
-  opacity: 0.35;
-
-}
-.bubble circle:nth-of-type(4) {
-
-}
-.bubble circle:nth-of-type(5) {
-
-}
-.bubble path {
-  
-}
-
-/* animate state */
-.bubble-wrap.animating .bubble circle:nth-of-type(1) {
-  -webkit-animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0s infinite alternate-reverse;
-          animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0s infinite alternate-reverse;
-}
-.bubble-wrap.animating .bubble circle:nth-of-type(2) {
-  -webkit-animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0.4s infinite alternate-reverse;
-          animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0.4s infinite alternate-reverse;
-}
-.bubble-wrap.animating .bubble circle:nth-of-type(3) {
-  -webkit-animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0.8s infinite alternate-reverse;
-          animation: fade 0.7s cubic-bezier(0.39, 0.58, 0.57, 1) 0.8s infinite alternate-reverse;
-}
-.bubble-wrap.animating .bubble circle:nth-of-type(4) {
-  -webkit-animation: expandBigger 0.5s infinite alternate 0.4s;
-          animation: expandBigger 0.5s infinite alternate 0.4s;
-}
-.bubble-wrap.animating .bubble circle:nth-of-type(5) {
-  -webkit-animation: expandTiny 0.5s infinite alternate;
-          animation: expandTiny 0.5s infinite alternate;
-}
-.bubble-wrap.animating .bubble path {
-  -webkit-animation: expandBiggest 1s linear infinite alternate;
-          animation: expandBiggest 1s linear infinite alternate;
-}
-
-@-webkit-keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.3;
-  }
-}
-
-@keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.3;
-  }
-}
-@-webkit-keyframes expandTiny {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(4.1px, -7.48px) scale(1.5);
-            transform: translate(4.1px, -7.48px) scale(1.5);
-  }
-}
-@keyframes expandTiny {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(4.1px, -7.48px) scale(1.1);
-            transform: translate(4.1px, -7.48px) scale(1.1);
-  }
-}
-@-webkit-keyframes expandBigger {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(2.52px, -6.26px) scale(1.1);
-            transform: translate(2.52px, -6.26px) scale(1.1);
-  }
-}
-@keyframes expandBigger {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(2.52px, -6.26px) scale(1.1);
-            transform: translate(2.52px, -6.26px) scale(1.1);
-  }
-}
-@-webkit-keyframes expandBiggest {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(-0.525px, -0.94875px) scale(1.03);
-            transform: translate(-0.525px, -0.94875px) scale(1.03);
-  }
-}
-@keyframes expandBiggest {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  to {
-    -webkit-transform: translate(-0.525px, -0.94875px) scale(1.03);
-            transform: translate(-0.525px, -0.94875px) scale(1.03);
-  }
-}
