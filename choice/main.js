@@ -86,9 +86,6 @@ window.onload = function() {
       return false;
     });
   });
-  document.body.addEventListener('click', function() {
-    window.location.pathname = '/expression';
-  });
 };
 
 
