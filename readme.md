@@ -1,5 +1,5 @@
 ### names
 - location / locate
-- conversation / ?
+- conversation / pronounce
 - choice / choose
 - rate
