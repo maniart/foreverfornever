@@ -57,7 +57,7 @@ for(var i = 0; i < TOTAL_COUNT; i ++) {
 var diffy = Diffy.create({
   resolution: { x: SLICE_COUNT_X, y: SLICE_COUNT_Y },
   sensitivity: .2,
-  threshold: 20,
+  threshold: 25,
   debug: true,
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
