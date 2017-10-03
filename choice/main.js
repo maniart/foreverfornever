@@ -58,7 +58,7 @@ var diffy = Diffy.create({
   resolution: { x: SLICE_COUNT_X, y: SLICE_COUNT_Y },
   sensitivity: .2,
   threshold: 25,
-  debug: true,
+  debug: false,
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
   onFrame: function (matrix) {
@@ -86,5 +86,10 @@ window.onload = function() {
       return false;
     });
   });
+  document.body.addEventListener('click', function() {
+    window.location.pathname = '/expression';
+  });
 };
+
+
 

@@ -5,16 +5,16 @@
 </head>
   <style type="text/css">
     body {
-      unicode-bidi: bidi-override;
-      direction: rtl;
+      margin: 0;
+      padding: 0;
     }
     html, body {
       width: 100%;
       height: 100%;
+      cursor: pointer;
     }
     #element-container {
       padding: 25px;
-      border: 1px solid black;
       width: 570px;
       height: auto;
       position: absolute;
@@ -23,14 +23,6 @@
       transform: translate(-50%, -50%);
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
-    }
-    .star {
-      unicode-bidi: bidi-override;
-      direction: rtl;
-    }
-    .star.active {
-      content: "\2605";
-      position: absolute;
     }
   </style>
 <body>

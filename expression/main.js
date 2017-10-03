@@ -15,9 +15,8 @@ var THRESHOLD = 100;
 var SLICE_COUNT_Y =  25;
 var SLICE_COUNT_X =  32
 var TOTAL_COUNT = SLICE_COUNT_X * SLICE_COUNT_Y; 
-var inputs = [];
-var slices = window.slices = [];
-var inputContainer = document.querySelector('#element-container');
+var bubbles = window.bubbles = [];
+var container = document.querySelector('#element-container');
 
 function Slice(el) {
   this.timer = null;
@@ -35,26 +34,27 @@ Slice.prototype.react = function() {
   var reset = function() {
     this.setActive(false);
     window.clearTimeout(this.timer);
-    this.el.classList.add('hidden');
+    this.el.classList.remove('active');
     this.timer = null;
   }.bind(this);
 
   if (!this.active) {
     this.setActive(true);
-    this.el.classList.remove('hidden');
+    this.el.classList.add('active');
     this.timer = window.setTimeout(reset, 500);
   }
   return this;
 };
 
 for(var i = 0; i < TOTAL_COUNT; i ++) {
-  // debugger
-  var el = document.createElement('span');
-  el.classList.add('pin', 'hidden');
-  inputContainer.appendChild(el);
-  slices.push(new Slice(el));
+  var el = document.createElement('div');
+  el.classList.add('bubble');
+  // var count = document.createElement('span');
+  // count.innerText = i;
+  // el.appendChild(count);
+  container.appendChild(el);
+  bubbles.push(new Slice(el));
 }
-
 
 var diffy = Diffy.create({
   resolution: { x: SLICE_COUNT_X, y: SLICE_COUNT_Y },
@@ -64,7 +64,6 @@ var diffy = Diffy.create({
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
   onFrame: function (matrix) {
-    // debugger
     var slice;
     var index;
     for(var i = 0; i < matrix.length; i++) {
@@ -72,7 +71,7 @@ var diffy = Diffy.create({
       var input;
       for(var j = 0; j < column.length; j ++) {
         index = SLICE_COUNT_X * j + i;
-        slice = slices[index];
+        slice = bubbles[index];
         if(matrix[i][j] < 180) {
           slice.react();
         }
@@ -81,3 +80,8 @@ var diffy = Diffy.create({
   }
 });
 
+window.onload = function() {
+  document.body.addEventListener('click', function() {
+    window.location.pathname = '/locality';
+  });
+};

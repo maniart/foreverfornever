@@ -13,10 +13,11 @@ var logger2 = createOnceLog();
 
 var THRESHOLD = 100;
 var SLICE_COUNT_Y =  25;
-var SLICE_COUNT_X =  32;
+var SLICE_COUNT_X =  32
 var TOTAL_COUNT = SLICE_COUNT_X * SLICE_COUNT_Y; 
-var stars = [];
-var starContainer = document.querySelector('#element-container');
+var inputs = [];
+var slices = window.slices = [];
+var inputContainer = document.querySelector('#element-container');
 
 function Slice(el) {
   this.timer = null;
@@ -34,23 +35,24 @@ Slice.prototype.react = function() {
   var reset = function() {
     this.setActive(false);
     window.clearTimeout(this.timer);
-    this.el.classList.remove('active');
+    this.el.classList.add('hidden');
     this.timer = null;
   }.bind(this);
 
   if (!this.active) {
     this.setActive(true);
-    this.el.classList('checked', true);
+    this.el.classList.remove('hidden');
     this.timer = window.setTimeout(reset, 500);
   }
   return this;
 };
 
 for(var i = 0; i < TOTAL_COUNT; i ++) {
-  var star = document.createElement('span');
-  star.innerText = '☆'; 
-  starContainer.appendChild(star);
-  stars.push(new Slice(star));
+  // debugger
+  var el = document.createElement('span');
+  el.classList.add('pin', 'hidden');
+  inputContainer.appendChild(el);
+  slices.push(new Slice(el));
 }
 
 
@@ -62,6 +64,7 @@ var diffy = Diffy.create({
   containerClassName: 'my-diffy-container',
   sourceDimensions: { w: 130, h: 100 },
   onFrame: function (matrix) {
+    // debugger
     var slice;
     var index;
     for(var i = 0; i < matrix.length; i++) {
@@ -69,7 +72,7 @@ var diffy = Diffy.create({
       var input;
       for(var j = 0; j < column.length; j ++) {
         index = SLICE_COUNT_X * j + i;
-        slice = stars[index];
+        slice = slices[index];
         if(matrix[i][j] < 180) {
           slice.react();
         }
@@ -78,3 +81,8 @@ var diffy = Diffy.create({
   }
 });
 
+window.onload = function() {
+  document.body.addEventListener('click', function() {
+    window.location.pathname = '/choice';
+  });
+};
