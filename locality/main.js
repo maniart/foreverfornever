@@ -67,13 +67,13 @@ var diffy = Diffy.create({
     // debugger
     var slice;
     var index;
-    for(var i = 0; i < matrix.length; i++) {
-      var column = matrix[i];
+    for(var j = 0; j < matrix.length; j++) {
+      var row = matrix[j];
       var input;
-      for(var j = 0; j < column.length; j ++) {
+      for(var i = 0; i < row.length; i ++) {
         index = SLICE_COUNT_X * j + i;
         slice = slices[index];
-        if(matrix[i][j] < 180) {
+        if(matrix[j][i] < 180) {
           slice.react();
         }
       }
